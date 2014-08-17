@@ -50,7 +50,7 @@ static uint32_t spiTransferLong(const uint32_t data)
   union {
     unsigned long l;
     unsigned char c[4];
-  } 
+  }
   long2char;
 
   long2char.l = data;
@@ -147,7 +147,7 @@ const byte  deselect) {
   union {
     unsigned long l;
     unsigned char c[4];
-  } 
+  }
   long2char;
 
   byte  i,crc,errorcount;
@@ -176,7 +176,7 @@ const byte  deselect) {
     do {
       i = spiTransferByte(0xff);
       counter++;
-    } 
+    }
     while (i & 0x80 && counter < 0x1000);
 
     // Check for CRC error
@@ -248,7 +248,7 @@ byte mmc::initialize() {
       // kills my Sandisk 1G which requires the retries in the first place
       // deselectCard();
     }
-  } 
+  }
   while (i > 1 && counter-- > 0);
 
   if (counter > 0) {
@@ -268,7 +268,7 @@ byte mmc::initialize() {
   do {
     i = sendCommand(SEND_OP_COND, 1L<<30, 1);
     counter--;
-  } 
+  }
   while (i != 0 && counter > 0);
 
   if (counter==0) {
@@ -365,7 +365,7 @@ byte mmc::readSectors(byte *buffer, uint32_t sector, byte count, uint16_t offset
 
       // Get data for the first half of the package
       crc = 0;
-      if (offset1 + offset2 == BYTESPERSECTOR) 
+      if (offset1 + offset2 == BYTESPERSECTOR)
       {
         // case when we come in the first time
         // the first half of the buffer is filled up
@@ -442,7 +442,7 @@ byte mmc::writeSectors(const byte *buffer, uint32_t sector, byte count) {
 
       // Retry if neccessary
       if ((status & 0x0F) != 0x05) {
-        //	uart_putc('X');
+        //  uart_putc('X');
         deselectCard();
         errorcount++;
         buffer = oldbuffer;

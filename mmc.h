@@ -53,17 +53,17 @@ const unsigned short BYTESPERSECTOR = 512;
 #define SD_SUPPLY_VOLTAGE (1L<<18)
 
 /* Disk Status Bits (byte) */
-const byte STA_NOINIT = 0x01; 	/* Drive not initialized */
-const byte STA_NODISK = 0x02; 	/* No medium in the drive */
-const byte STA_PROTECT = 0x04; 	/* Write protected */
+const byte STA_NOINIT = 0x01;   /* Drive not initialized */
+const byte STA_NODISK = 0x02;   /* No medium in the drive */
+const byte STA_PROTECT = 0x04;  /* Write protected */
 
 /* Results of Disk Functions */
 typedef enum {
-  RES_OK = 0,		/* 0: Successful */
-  RES_ERROR,		/* 1: R/W Error */
-  RES_WRPRT,		/* 2: Write Protected */
-  RES_NOTRDY,		/* 3: Not Ready */
-  RES_PARERR		/* 4: Invalid Parameter */
+  RES_OK = 0,   /* 0: Successful */
+  RES_ERROR,    /* 1: R/W Error */
+  RES_WRPRT,    /* 2: Write Protected */
+  RES_NOTRDY,   /* 3: Not Ready */
+  RES_PARERR    /* 4: Invalid Parameter */
 }
 DRESULT;
 

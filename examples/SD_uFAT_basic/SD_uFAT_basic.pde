@@ -5,7 +5,7 @@
  * http://www.libelium.com
  *
  * This example allows manipulating one file stored in the SD card called "hola.txt"
- * I have chosen "hola", meaning "hello" in Spanish, just because I was a little 
+ * I have chosen "hola", meaning "hello" in Spanish, just because I was a little
  * tired of the classic "hello world". The file should be stored in the card and comes
  * in the ZIP file containing this example. You manipulate the file by simple commands
  * over the serial port. Here a list:
@@ -20,7 +20,7 @@
  * - A: append data interactively to the end of the file
  *
  * BUT HOW DOES IT WORK?
- * I use the SD uFAT approach, this example offers a series of functions  
+ * I use the SD uFAT approach, this example offers a series of functions
  * to manipulate the content of SD cards. The only premise is that the
  * files in the card must be pre-existing. A good way is to add text
  * documents created with gedit (LIN), textedit (MAC) or notepad (WIN)
@@ -43,7 +43,7 @@
  *
  * BASIC
  * - ls(filename): lists the size, amount of sectors, and real use of a file
- * - del(filename): erases a file by putting a NULL character at the beginning 
+ * - del(filename): erases a file by putting a NULL character at the beginning
  *                  of all its sectors
  * - print(filename, string): appends a string at the end of a file [1]
  * - println(filename, string): appends a string + EOL at the end of a file
@@ -85,13 +85,13 @@
  * This code has been kindly commissioned by Libelium.com and has been executed
  * by D.J. Cuartielles -aka BlushingBoy-. The code was written in Sweden, Spain
  * Mexico, Korea, and Singapore. It is based on previous work by others
- * 
+ *
  *LICENSE
  * SD_uFAT Basic - Basic use of SD Cards
  *
  * Copyright (C) 2008 Libelium Comunicaciones Distribuidas S.L.
  * http://www.libelium.com
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -105,9 +105,9 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *   
- * However, D.J. Cuartielles has to credit the following people, since 
- * the library with this example is a wrapper on code written by others, 
+ *
+ * However, D.J. Cuartielles has to credit the following people, since
+ * the library with this example is a wrapper on code written by others,
  * who deserve all the credit for their effort making this possible:
  *
  *  ** sd2iec - SD/MMC to Commodore serial bus interface/controller
@@ -136,7 +136,7 @@ void setup(void)
   // I activate it at all times
   pinMode(MEM_PW, OUTPUT);
   digitalWrite(MEM_PW, HIGH);
-  
+
   // configure the serial port to command the card and read data
   Serial.begin(19200);
 }
@@ -175,7 +175,7 @@ void loop(void)
       result = 2; // value for unknown operation
       break;
     }
-    
+
     // print a status message for the last issued command
     // for help (result == 3) won't print anything
     if (result == 1) SD.printEvent(ERROR, "hola.txt");
