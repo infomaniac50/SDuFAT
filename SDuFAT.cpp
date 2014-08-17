@@ -17,8 +17,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- * 
- * However, D.J. Cuartielles has to credit the following people, since 
+ *
+ * However, D.J. Cuartielles has to credit the following people, since
  * this library is just a wrapper on code written by others, who deserve
  * all the credit for their effort making this possible:
  *
@@ -91,7 +91,7 @@ void SDuFAT::printEvent(int event, const char* filename)
       Serial.println(WARNINGm);
       break;
     default:
-      break;  
+      break;
     }
   }
 }
@@ -108,11 +108,11 @@ long SDuFAT::usedBytes(const char* filename)
     if (microfat::locateFileStart(filename, sector, length))
     {
       if (length > BYTESPERSECTOR) {
-        sectors = length / BYTESPERSECTOR; 
+        sectors = length / BYTESPERSECTOR;
         length = BYTESPERSECTOR;
       }
 
-      for( long j = 0; j <= sectors; j++) 
+      for( long j = 0; j <= sectors; j++)
         if (RES_OK == mmc::readSectors(buffer, sector + j, 1))
         {
           if (length > BYTESPERSECTOR)
@@ -126,11 +126,11 @@ long SDuFAT::usedBytes(const char* filename)
             bytesUsed++;
           }
 
-        } 
+        }
         else return 0;
-    } 
+    }
     else return 0;
-  } 
+  }
   else return 0;
   return bytesUsed;
 }
@@ -147,9 +147,9 @@ long SDuFAT::startSector(const char* filename)
     if (microfat::locateFileStart(filename, theSector, length))
     {
 
-    } 
+    }
     else return 0;
-  } 
+  }
   else return 0;
   return theSector;
 }
@@ -178,15 +178,15 @@ int SDuFAT::del(const char* filename)
           {
             if (RES_OK == mmc::writeSectors(buffer, sector + m, 1))
             {
-            } 
+            }
             else return 1;
           }
-        } 
+        }
         else return 1;
       }
-    } 
+    }
     else return 1;
-  } 
+  }
   else return 1;
   return 0;
 }
@@ -211,12 +211,12 @@ int SDuFAT::ls(const char* filename)
         length = BYTESPERSECTOR;
       }
 
-      sectors = length / BYTESPERSECTOR; 
+      sectors = length / BYTESPERSECTOR;
       Serial.print(sectors);
       Serial.print("\t");
 
       long bytesUsed = 0;
-      for( long j = 0; j <= sectors; j++) 
+      for( long j = 0; j <= sectors; j++)
         if (RES_OK == mmc::readSectors(buffer, sector + j, 1))
         {
           if (length > BYTESPERSECTOR)
@@ -232,11 +232,11 @@ int SDuFAT::ls(const char* filename)
             bytesUsed++;
           }
 
-        } 
+        }
         else return 1;
-    } 
+    }
     else return 1;
-  } 
+  }
   else return 1;
   return 0;
 }
@@ -253,11 +253,11 @@ int SDuFAT::cat(const char* filename)
     {
 
       if (length > BYTESPERSECTOR) {
-        sectors = length / BYTESPERSECTOR; 
+        sectors = length / BYTESPERSECTOR;
         length = BYTESPERSECTOR;
       }
 
-      for( long j = 0; j <= sectors; j++) 
+      for( long j = 0; j <= sectors; j++)
         if (RES_OK == mmc::readSectors(buffer, sector + j, 1))
         {
           if (length > BYTESPERSECTOR)
@@ -269,14 +269,14 @@ int SDuFAT::cat(const char* filename)
               Serial.println();
               return 0;
             }
-            Serial.print(buffer[i],BYTE);
+            Serial.write(buffer[i]);
           }
 
-        } 
+        }
         else return 1;
-    } 
+    }
     else return 1;
-  } 
+  }
   else return 1;
   Serial.println();
   return 0;
@@ -305,7 +305,7 @@ int SDuFAT::write(const char* filename)
           inByte = Serial.read();
           if (inByte != EOL) {
             buffer[count] = inByte;
-          } 
+          }
           else break;
         }
 
@@ -321,11 +321,11 @@ int SDuFAT::write(const char* filename)
           }
           else return 1;
         }
-      } 
+      }
       else return 1;
-    } 
+    }
     else return 1;
-  } 
+  }
   else return 1;
   return 0;
 }
@@ -367,7 +367,7 @@ int SDuFAT::print(const char* filename, char* data)
 
   if (RES_OK == mmc::readSectors(buffer, sector + sectors, 1))
   {
-    if (length > BYTESPERSECTOR) 
+    if (length > BYTESPERSECTOR)
       length = BYTESPERSECTOR;
 
     int count = 0;
@@ -375,7 +375,7 @@ int SDuFAT::print(const char* filename, char* data)
     {
       if (data[count-offset1] != 0) {  // 0 is end of string
         buffer[count] = data[count-offset1];
-      } 
+      }
       else break;
     }
 
@@ -388,11 +388,11 @@ int SDuFAT::print(const char* filename, char* data)
     {
       if (RES_OK == mmc::writeSectors(buffer, sector + sectors, 1))
       {
-      } 
+      }
       else return 1;
     }
 
-    if (data[count-offset1] != 0) 
+    if (data[count-offset1] != 0)
     {
       // it's not the end of the string, we gotta
       // push data into the next block
@@ -401,7 +401,7 @@ int SDuFAT::print(const char* filename, char* data)
       {
         if (data[count2 + count - offset1] != 0) {  // 0 is end of string
           buffer[count2] = data[count2 + count - offset1];
-        } 
+        }
         else break;
       }
 
@@ -419,7 +419,7 @@ int SDuFAT::print(const char* filename, char* data)
         {
           if (RES_OK == mmc::writeSectors(buffer, sector + sectors + 1, 1))
           {
-          } 
+          }
           else return 1;
         }
       }
@@ -429,7 +429,7 @@ int SDuFAT::print(const char* filename, char* data)
       }
 
     }
-  } 
+  }
   else return 1;
   return 0;
 }
@@ -443,10 +443,10 @@ int SDuFAT::append(const char* filename)
     while (!Serial.available()) {
     };
     inByte = Serial.read();
-    Serial.print(inByte, BYTE);
+    Serial.write(inByte);
     if (inByte != EOL) {
       data[count] = inByte;
-    } 
+    }
     else break;
   }
   Serial.println();

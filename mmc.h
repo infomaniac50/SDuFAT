@@ -1,7 +1,11 @@
 #ifndef __MMC_H__
 #define __MMC_H__
 
-#include <WProgram.h>
+#if (ARDUINO >= 100)
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
 #include <inttypes.h>
 
 
@@ -60,14 +64,14 @@ typedef enum {
   RES_WRPRT,		/* 2: Write Protected */
   RES_NOTRDY,		/* 3: Not Ready */
   RES_PARERR		/* 4: Invalid Parameter */
-} 
+}
 DRESULT;
 
 
 
 /* Will be set to DISK_ERROR if any access on the card fails */
 enum diskstates
-{ 
+{
   DISK_CHANGED = 0,
   DISK_REMOVED,
   DISK_OK,
@@ -133,7 +137,7 @@ namespace mmc
    * @buffer: pointer to the buffer
    * @sector: first sector to be read
    * @count : number of sectors to be read
-   * @offset1: starting point where to write in buffer 
+   * @offset1: starting point where to write in buffer
    * @offset2: starting point where to read from the file
    *
    * This function reads count sectors from the SD card starting

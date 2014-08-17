@@ -17,8 +17,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- * 
- * However, D.J. Cuartielles has to credit the following people, since 
+ *
+ * However, D.J. Cuartielles has to credit the following people, since
  * this library is just a wrapper on code written by others, who deserve
  * all the credit for their effort making this possible:
  *
@@ -33,7 +33,11 @@
 
 #include "mmc.h"
 #include "microfat.h"
-#include <WProgram.h>
+#if (ARDUINO >= 100)
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
 
 #ifndef SDuFAT_h
 #define SDuFAT_h
@@ -62,10 +66,10 @@
 #define ERRORm "..error!\n"
 #define WARNINGm "..warning!\n"
 
-// maximum size of the string to be sent to the card at once 
+// maximum size of the string to be sent to the card at once
 // (you will have a hard time getting it to work for bigger values)
 // if needed, reduce to the minimum your use of Serial.print and other strings
-#define DATABUFFERSIZE 32 
+#define DATABUFFERSIZE 32
 
 // define verbose modes
 #define ON 1
@@ -79,7 +83,7 @@ class SDuFAT
 {
   private:
   public:
-  
+
 /// CONSTRUCTORS ////////////////////////////////////////////////////////////////////////
 
 SDuFAT(void);
